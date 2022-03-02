@@ -1,0 +1,7 @@
+{
+  "name": "GreeNFT",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

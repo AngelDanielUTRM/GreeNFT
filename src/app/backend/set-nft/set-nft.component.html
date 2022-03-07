@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="subtitulo ion-text-wrap">
+          Configuración de NFT
+        </ion-title>
+        <ion-buttons slot="start">
+          <ion-button (click)="openMenu()">
+            <ion-icon color="chartreuse" slot="icon-only" name="menu-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <h3 class="subtituloMenor encabezado">Ingrese datos del NFT</h3>
+
+  <ion-item>
+      <ion-label class="normal" position="floating">
+        Nombre:
+      </ion-label>
+      <ion-input class="normal" type="string" inputmode="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Coste normal:
+    </ion-label>
+    <ion-input class="normal" type="number" inputmode="numeric"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label class="normal" position="floating">
+    Coste rebajado:
+  </ion-label>
+  <ion-input class="normal" type="number" inputmode="numeric"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label class="normal">
+    Imagen:
+  </ion-label>
+  <ion-buttons slot="end">
+    <ion-button>
+      <ion-icon slot="icon-only" name="image-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+ 
+</ion-item>
+
+<ion-button style="margin:30px" expand="full" color="dark">
+  Guardar
+</ion-button>
+
+</ion-content>

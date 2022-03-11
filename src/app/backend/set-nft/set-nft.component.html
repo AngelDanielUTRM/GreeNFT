@@ -19,21 +19,21 @@
       <ion-label class="normal" position="floating">
         Nombre:
       </ion-label>
-      <ion-input class="normal" type="string" inputmode="text"></ion-input>
+      <ion-input [(ngModel)]="newNfts.nombre" class="normal" type="string" inputmode="text"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label class="normal" position="floating">
       Coste normal:
     </ion-label>
-    <ion-input class="normal" type="number" inputmode="numeric"></ion-input>
+    <ion-input [(ngModel)]="newNfts.precio_normal" class="normal" type="number" inputmode="numeric"></ion-input>
 </ion-item>
 
 <ion-item>
   <ion-label class="normal" position="floating">
     Coste rebajado:
   </ion-label>
-  <ion-input class="normal" type="number" inputmode="numeric"></ion-input>
+  <ion-input [(ngModel)]="newNfts.precio_rebajado" class="normal" type="number" inputmode="numeric"></ion-input>
 </ion-item>
 
 <ion-item>
@@ -45,10 +45,11 @@
       <ion-icon slot="icon-only" name="image-outline"></ion-icon>
     </ion-button>
   </ion-buttons>
- 
+
 </ion-item>
 
-<ion-button style="margin:30px" expand="full" color="dark">
+<ion-button style="margin:30px" expand="full" color="dark"
+(click)="guardarNFT()">
   Guardar
 </ion-button>
 

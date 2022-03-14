@@ -13,44 +13,83 @@
 </ion-header>
 
 <ion-content>
-  <h3 class="subtituloMenor encabezado">Ingrese datos del NFT</h3>
 
-  <ion-item>
+  <div style="text-align: end; margin: 15px;">
+    <ion-button class="normal" color="dark" (click)="nuevo()">
+      Nuevo
+      </ion-button>
+  </div>
+
+  <div *ngIf="EnableNewNft">
+
+    <ion-item>
+      <ion-buttons slot="end">
+          <ion-button (click)="EnableNewNft = false">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <h3 class="subtituloMenor encabezado">Ingrese datos del NFT</h3>
+
+
+    <ion-item>
+        <ion-label class="normal" position="floating">
+          Nombre:
+        </ion-label>
+        <ion-input [(ngModel)]="newNfts.nombre" class="normal" type="string" inputmode="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label class="normal" position="floating">
-        Nombre:
+        Coste normal:
       </ion-label>
-      <ion-input [(ngModel)]="newNfts.nombre" class="normal" type="string" inputmode="text"></ion-input>
+      <ion-input [(ngModel)]="newNfts.precio_normal" class="normal" type="number" inputmode="numeric"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label class="normal" position="floating">
-      Coste normal:
+      Coste rebajado:
     </ion-label>
-    <ion-input [(ngModel)]="newNfts.precio_normal" class="normal" type="number" inputmode="numeric"></ion-input>
-</ion-item>
+    <ion-input [(ngModel)]="newNfts.precio_rebajado" class="normal" type="number" inputmode="numeric"></ion-input>
+  </ion-item>
 
-<ion-item>
-  <ion-label class="normal" position="floating">
-    Coste rebajado:
-  </ion-label>
-  <ion-input [(ngModel)]="newNfts.precio_rebajado" class="normal" type="number" inputmode="numeric"></ion-input>
-</ion-item>
+  <ion-item>
+    <ion-label class="normal">
+      Imagen:
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="image-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
-<ion-item>
-  <ion-label class="normal">
-    Imagen:
-  </ion-label>
-  <ion-buttons slot="end">
-    <ion-button>
-      <ion-icon slot="icon-only" name="image-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
+  </ion-item>
 
-</ion-item>
-
-<ion-button style="margin:30px" expand="full" color="dark"
+  <ion-button style="margin:30px" expand="full" color="dark"
 (click)="guardarNFT()">
   Guardar
 </ion-button>
+
+  </div>
+
+
+
+
+<ion-item *ngFor="let nft of nfts">
+  <ion-label class="normal">{{nft.nombre}}</ion-label>
+
+  <ion-buttons slot="end">
+    <ion-button (click)="newNfts = nft; EnableNewNft = true;">
+      <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="deleteNFT(nft)">
+      <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+    </ion-button>
+
+  </ion-buttons>
+</ion-item>
+
 
 </ion-content>

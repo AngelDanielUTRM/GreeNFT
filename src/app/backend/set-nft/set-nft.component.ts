@@ -1,8 +1,9 @@
 import { NumberSymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-import { Nfts } from 'src/app/models';
+import { Nft } from 'src/app/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
+
 
 @Component({
   selector: 'app-set-nft',
@@ -11,21 +12,20 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 })
 export class SetNftComponent implements OnInit {
 
-  newNfts: Nfts ={
-    nombre: '',
-    precio_normal: null,
-    precio_rebajado: null,
-    foto: '',
-    id: this.firestoreservice.getId(),
-    fecha: new Date()
-  };
+  nfts: Nft [] = [];
+
+  newNfts: Nft;
+
+  EnableNewNft = false;
 
   private path = "nfts/"
 
   constructor(public menucontroler: MenuController,
               public firestoreservice: FirestoreService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getNFT();
+  }
 
   openMenu()
   {
@@ -36,5 +36,28 @@ export class SetNftComponent implements OnInit {
   guardarNFT(){
 
     this.firestoreservice.createDoc(this.newNfts,this.path,this.newNfts.id);
+  }
+
+  getNFT(){
+    this.firestoreservice.getCollection<Nft>(this.path).subscribe(res => {
+      this.nfts = res;
+    });
+  }
+
+  deleteNFT(nft: Nft){
+    this.firestoreservice.deleteDoc(this.path, nft.id);
+  }
+
+  nuevo(){
+    this.EnableNewNft = true;
+
+    this.newNfts ={
+      nombre: '',
+      precio_normal: null,
+      precio_rebajado: null,
+      foto: '',
+      id: this.firestoreservice.getId(),
+      fecha: new Date()
+    };
   }
 }

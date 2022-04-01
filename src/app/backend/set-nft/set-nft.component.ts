@@ -1,6 +1,6 @@
 import { NumberSymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { Nft } from 'src/app/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -20,8 +20,14 @@ export class SetNftComponent implements OnInit {
 
   private path = "nfts/"
 
+  loading: any;
+
   constructor(public menucontroler: MenuController,
-              public firestoreservice: FirestoreService) { }
+              public firestoreservice: FirestoreService,
+              public loadingController: LoadingController,
+              public toastController: ToastController,
+              public alertController: AlertController
+              ) { }
 
   ngOnInit() {
     this.getNFT();
@@ -34,8 +40,14 @@ export class SetNftComponent implements OnInit {
   }
 
   guardarNFT(){
+    this.presentLoading();
+    this.firestoreservice.createDoc(this.newNfts,this.path,this.newNfts.id).then( res => {
+        this.loading.dismiss();
+        this.presentToast('guardado con exito');
+    }).catch( error => {
+      this.presentToast('no se ha podido guardar');
+    });
 
-    this.firestoreservice.createDoc(this.newNfts,this.path,this.newNfts.id);
   }
 
   getNFT(){
@@ -44,8 +56,41 @@ export class SetNftComponent implements OnInit {
     });
   }
 
-  deleteNFT(nft: Nft){
-    this.firestoreservice.deleteDoc(this.path, nft.id);
+  async deleteNFT(nft: Nft){
+
+    const alert = await this.alertController.create({
+      cssClass: 'normal',
+      header: 'Advertencia',
+      message: 'seguro desea <strong>eliminar</strong> este producto?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'normal',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Ok',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.firestoreservice.deleteDoc(this.path, nft.id).then(res => {
+              this.loading.dismiss();
+              this.presentToast('eliminado con exito');
+              this.alertController.dismiss();
+            }).catch(error => {
+              this.presentToast('No se pudo eliminar')
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+    //this.firestoreservice.deleteDoc(this.path, nft.id);
   }
 
   nuevo(){
@@ -59,5 +104,23 @@ export class SetNftComponent implements OnInit {
       id: this.firestoreservice.getId(),
       fecha: new Date()
     };
+  }
+
+  async presentLoading() {
+   this.loading = await this.loadingController.create({
+      cssClass: 'normal',
+      message: 'guardando...',
+    });
+    await this.loading.present();
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      cssClass: 'normal',
+      duration: 2000,
+      color:'light',
+    });
+    toast.present();
   }
 }

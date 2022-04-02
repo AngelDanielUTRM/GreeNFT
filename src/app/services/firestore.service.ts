@@ -1,6 +1,8 @@
 /* eslint-disable no-trailing-spaces */
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { resolve } from 'dns';
+import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +39,6 @@ export class FirestoreService {
     const collection = this.database.collection<tipo>(path);
     return collection.valueChanges();
   }
+
+
 }

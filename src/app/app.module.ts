@@ -11,6 +11,7 @@ import { BackendModule } from './backend/backend.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireStorageModule,
 
 
 

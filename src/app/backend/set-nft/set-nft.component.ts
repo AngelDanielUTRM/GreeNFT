@@ -140,7 +140,11 @@ export class SetNftComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0])
    }
 */
-const res = await this.firestorageService.uploadimage()
+
+const path = "NFT-IMAGE";
+const name = "prueba";
+const file = event.target.files[0];
+const res = await this.firestorageService.uploadimage(file, path, name)
 console.log('recibi respuesta de la promesa', res)
 console.log("fin de la funcion -> NewImage")
   }

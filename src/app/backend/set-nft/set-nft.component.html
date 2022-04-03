@@ -27,6 +27,10 @@
           <ion-button (click)="EnableNewNft = false">
             <ion-icon name="close-circle-outline"></ion-icon>
           </ion-button>
+
+          <ion-button (click)="guardarNFT()">
+            <ion-icon color="primary" slot="icon-only" name="save-outline"></ion-icon>
+          </ion-button>
       </ion-buttons>
     </ion-item>
 
@@ -69,30 +73,32 @@
 
   </ion-item>
 
-  <ion-button style="margin:30px" expand="full" color="dark"
-(click)="guardarNFT()">
-  Guardar
-</ion-button>
+  <ion-item>
+    <img class="image" [src]="newNfts.foto">
+  </ion-item>
+
 
   </div>
 
+<ion-card>
+  <h3 class="subtituloMenor encabezado">Lista de NFT</h3>
+
+  <ion-item *ngFor="let nft of nfts">
+    <ion-label class="normal">{{nft.nombre}}</ion-label>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="newNfts = nft; EnableNewNft = true;">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="deleteNFT(nft)">
+        <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-item>
+
+</ion-card>
 
 
-
-<ion-item *ngFor="let nft of nfts">
-  <ion-label class="normal">{{nft.nombre}}</ion-label>
-
-  <ion-buttons slot="end">
-    <ion-button (click)="newNfts = nft; EnableNewNft = true;">
-      <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-    </ion-button>
-
-    <ion-button (click)="deleteNFT(nft)">
-      <ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
-    </ion-button>
-
-  </ion-buttons>
-</ion-item>
-
-<img [src]="NewImageUpload">
 </ion-content>

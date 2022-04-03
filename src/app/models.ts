@@ -6,3 +6,13 @@ export interface Nft{
   id:string,
   fecha: Date,
 }
+
+export interface cliente{
+uid: string,
+nombre: string,
+emial: string,
+celular: string,
+foto: string,
+referencia: string,
+ubicacion: any,
+}

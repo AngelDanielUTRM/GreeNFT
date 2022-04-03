@@ -60,7 +60,10 @@
     </ion-label>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon slot="icon-only" name="image-outline"></ion-icon>
+        <label for="file-upload">
+          <ion-icon slot="icon-only" name="image-outline"></ion-icon>
+        </label>
+        <input (change)="NewImage($event)" id="file-upload" style="display:none;" type="file" accept="image/*">
       </ion-button>
     </ion-buttons>
 
@@ -91,5 +94,5 @@
   </ion-buttons>
 </ion-item>
 
-
+<img [src]="NewImageUpload">
 </ion-content>

@@ -1,8 +1,11 @@
+import { FirestorageService } from './../../services/firestorage.service';
 import { NumberSymbol } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuController, LoadingController, ToastController, AlertController } from '@ionic/angular';
+import { read } from 'fs';
 import { Nft } from 'src/app/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { fileURLToPath } from 'url';
 
 
 @Component({
@@ -20,13 +23,16 @@ export class SetNftComponent implements OnInit {
 
   private path = "nfts/"
 
+  NewImageUpload='';
+
   loading: any;
 
   constructor(public menucontroler: MenuController,
               public firestoreservice: FirestoreService,
               public loadingController: LoadingController,
               public toastController: ToastController,
-              public alertController: AlertController
+              public alertController: AlertController,
+              public firestorageService: FirestorageService
               ) { }
 
   ngOnInit() {
@@ -122,5 +128,24 @@ export class SetNftComponent implements OnInit {
       color:'light',
     });
     toast.present();
+  }
+
+  async NewImage(event: any){
+    /*
+   if(event.target.files && event.target.files[0]){
+     const reader = new FileReader();
+      reader.onload = ((image) => {
+        this.NewImageUpload = image.target.result as string;
+      });
+      reader.readAsDataURL(event.target.files[0])
+   }
+*/
+
+const path = "NFT-IMAGE";
+const name = "prueba";
+const file = event.target.files[0];
+const res = await this.firestorageService.uploadimage(file, path, name)
+console.log('recibi respuesta de la promesa', res)
+console.log("fin de la funcion -> NewImage")
   }
 }
